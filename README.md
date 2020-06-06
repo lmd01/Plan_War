@@ -1,4 +1,4 @@
-# Plan_War
+# Plane_War
 my_first_pythongame
 ## **飞机大战v1.0**
 
