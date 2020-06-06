@@ -66,7 +66,7 @@ class Enemy(GameSprite):
         bullet = EnemyBullet(self.speed + 2)
 
         bullet.rect.y = self.rect.bottom
-        bullet.rect.centerx = self.rect.x
+        bullet.rect.centerx = self.rect.centerx
 
         self.bullets.add(bullet)
 

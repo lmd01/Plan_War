@@ -23,7 +23,6 @@ class PlaneGame(object):
         bg2 = Backgroud(True)
 
         self.back_group = pygame.sprite.Group(bg1, bg2)
-        # self.enemy = Enemy
 
         self.enemy_group = pygame.sprite.Group()
 
@@ -54,7 +53,9 @@ class PlaneGame(object):
             elif event.type == CREATE_ENEMY_EVENT:
                 enemy = Enemy()
                 self.enemy_group.add(enemy)
-                # for
+                for enemy in self.enemy_group.sprites():
+                    enemy.fire()
+
             elif event.type == HERO_FIRE_EVENT:
                 self.hero.fire()
 
@@ -74,6 +75,11 @@ class PlaneGame(object):
 
     def __check_collide(self):
         pygame.sprite.groupcollide(self.hero.bullets, self.enemy_group, True, True)
+        for enemy in self.enemy_group.sprites():
+            bullets = pygame.sprite.groupcollide(self.hero_group, enemy.bullets, True, True)
+            if len(bullets) > 0:
+                self.hero.kill()
+                PlaneGame.__game_over()
         enemies = pygame.sprite.groupcollide(self.hero_group, self.enemy_group, True, True)
 
         if len(enemies) > 0:
@@ -93,12 +99,13 @@ class PlaneGame(object):
         self.hero.bullets.update()
         self.hero.bullets.draw(self.screen)
 
-        # self.enemy.bullets.update()
-        # self.enemy.bullets.draw(self.screen)
+        for enemy in self.enemy_group.sprites():
+            enemy.bullets.update()
+            enemy.bullets.draw(self.screen)
 
     @staticmethod
     def __game_over():
-        print("game over")
+        print("game over!!!")
 
         pygame.quit()
         exit()
